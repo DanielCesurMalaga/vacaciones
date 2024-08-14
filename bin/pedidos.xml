@@ -1,0 +1,16 @@
+<Pedidos>
+   
+   <Pedido numeroPedido="2">
+      <Cliente>
+         <Nombre>Mr.</Nombre>
+         <Apellido>Regan</Apellido>
+         <User>Cifra</User>
+      </Cliente>
+      <Productos>
+         <Producto>
+            <Nombre>Reinsercion 1.0</Nombre>
+            <FechaAlta>1307542390468</FechaAlta>
+         </Producto>
+      </Productos>
+   </Pedido>
+</Pedidos>
