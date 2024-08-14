@@ -3,7 +3,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println();
-        Lista miLista = new Lista("lista integers");
+        Lista miLista = new ListaFIFO("lista integers");
         miLista.mostrarLista();
         for (int i = 0; i < 10; i++) {
             miLista.insertar(i);
@@ -40,9 +40,9 @@ class NodoLista {
 
 }
 
-class Lista {
-    private NodoLista inicio;
-    private String nombre;
+abstract class Lista {
+    protected NodoLista inicio;
+    protected String nombre;
 
     public Lista(String nombreLista) {
         this.inicio = null;
@@ -69,24 +69,7 @@ class Lista {
         this.inicio = null;
     }
 
-    public void insertar(int num) {
-        if (inicio == null) {
-            inicio = new NodoLista(num, null);
-        } else {
-            // se inserta al final de la lista.
-            NodoLista nodoTemp = new NodoLista(0, null);
-            nodoTemp = this.inicio; // el nodo temp es el nodo inicio.
-
-            // mientras a lo q apunta nodoTemp no sea null, es decir, sea un nodo
-            // apunto a lo que apunta él
-            while (nodoTemp.getSig() != null) {
-                nodoTemp = nodoTemp.getSig();
-
-            }
-            // termino cuando el nodo al q apunto apunta a null, es decir, el último
-            nodoTemp.setSig(new NodoLista(num, null));
-        }
-    }
+    public abstract void insertar(int num);
 
     public void mostrarLista() {
         if (this.inicio == null) {
@@ -106,6 +89,49 @@ class Lista {
             nodoTemp = nodoTemp.getSig();
 
             System.out.println("Número total de elementos: " + contador);
+        }
+    }
+
+}
+
+class ListaLIFO extends Lista {
+    public ListaLIFO(String nombre) {
+        super(nombre);
+    }
+
+    public void insertar(int num) { // se inserta al final de la lista.
+        if (inicio == null) {
+            inicio = new NodoLista(num, null);
+        } else {
+
+            NodoLista nodoTemp = new NodoLista(0, null);
+            nodoTemp = this.inicio; // el nodo temp es el nodo inicio.
+
+            // mientras a lo q apunta nodoTemp no sea null, es decir, sea un nodo
+            // apunto a lo que apunta él
+            while (nodoTemp.getSig() != null) {
+                nodoTemp = nodoTemp.getSig();
+
+            }
+            // termino cuando el nodo al q apunto apunta a null, es decir, el último
+            nodoTemp.setSig(new NodoLista(num, null));
+        }
+    }
+
+}
+
+class ListaFIFO extends Lista {
+    public ListaFIFO(String nombre) {
+        super(nombre);
+    }
+
+    public void insertar(int num) { // se inserta al principio de la lista.
+        if (inicio == null) {
+            inicio = new NodoLista(num, null);
+        } else {
+            NodoLista nuevo = new NodoLista(num, this.inicio);
+            this.inicio = nuevo;
+
         }
     }
 
